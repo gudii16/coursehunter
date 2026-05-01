@@ -82,14 +82,29 @@ An enterprise-grade, cloud-native microservices platform for online education. B
 ## Quick Start
 
 ```bash
-make build      # Build all services (skip tests)
-make install    # Build all services and run tests
-make clean      # Wipe all build artifacts
-make test       # Run tests only
-make run        # Start all services with Docker Compose
-make stop       # Stop all running containers
-make logs       # Tail logs from all containers
+make build          # Build all services (skip tests)
+make install        # Build all services and run tests
+make clean          # Wipe all build artifacts
+make test           # Run tests only
+make docker-build   # Build Docker images for all services locally
+make docker-push    # Push images to GHCR
+make run            # Start all services with Docker Compose
+make stop           # Stop all running containers
+make logs           # Tail logs from all containers
 ```
+
+## CI/CD
+
+Two GitHub Actions workflows run automatically:
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| **CI** | PR or push to `main` | `mvn clean install` — build + test all services, upload test reports |
+| **CD** | Push to `main` | Maven package → build Docker image per service → push to GHCR |
+
+Images are published to `ghcr.io/<owner>/coursehunter/<service>` tagged with the short commit SHA and `latest`.
+
+No secrets need to be configured — the CD workflow uses the built-in `GITHUB_TOKEN` for GHCR access.
 
 ---
 
