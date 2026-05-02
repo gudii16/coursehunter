@@ -1,5 +1,5 @@
 SERVICES_DIR := services
-COMPOSE_FILE := docker-compose.yml
+COMPOSE_FILE := services/docker-compose.yaml
 IMAGE_PREFIX ?= ghcr.io/$(shell git config user.name)/coursehunter
 IMAGE_TAG    ?= $(shell git rev-parse --short HEAD)
 
