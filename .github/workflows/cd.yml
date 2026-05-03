@@ -88,9 +88,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: services
-          file: services/Dockerfile
+          file: services/${{ matrix.service }}/Dockerfile
           push: true
-          build-args: SERVICE_NAME=${{ matrix.service }}
           tags: |
             ${{ env.IMAGE_PREFIX }}/${{ matrix.service }}:${{ needs.build.outputs.image-tag }}
             ${{ env.IMAGE_PREFIX }}/${{ matrix.service }}:latest
