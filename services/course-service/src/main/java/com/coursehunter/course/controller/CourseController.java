@@ -30,7 +30,7 @@ public class CourseController {
             @RequestParam(required = false) String tag,
             @RequestParam(required = false) String search) {
 
-        if (tag != null)    return queryService.findByTag(tag);
+        if (tag != null)    return queryService.findByTag(String.join("-",tag.split(" ")).toLowerCase());
         if (status != null) return queryService.findByStatus(status);
         if (search != null) return queryService.search(search);
         return queryService.findAll();
