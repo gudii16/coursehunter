@@ -2,8 +2,6 @@
 -- CourseHunter — Course Service Schema
 -- ============================================================
 
-CREATE DATABASE course_inventory;
-
 CREATE SCHEMA IF NOT EXISTS course_inventory;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

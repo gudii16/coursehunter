@@ -1,10 +1,36 @@
 spring:
   application:
     name: course-service
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/course_inventory
+    username: default
+    password: default
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: course_inventory
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  cloud:
+    stream:
+      bindings:
+        course-events-out-0:
+          destination: course.events
+          content-type: application/json
+        courseEvents-in-0:
+          destination: course.events
+          group: course-catalog-projector
+          content-type: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
 
 server:
   port: 8082
