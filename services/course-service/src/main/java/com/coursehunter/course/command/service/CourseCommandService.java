@@ -110,10 +110,10 @@ public class CourseCommandService {
                 .build();
     }
 
-    private Set<Tag> resolveTags(Set<String> slugs) {
-        return slugs.stream()
-                .map(slug -> tagRepository.findBySlug(slug)
-                        .orElseGet(() -> tagRepository.save(new Tag(slug, slug))))
+    private Set<Tag> resolveTags(Set<String> tags) {
+        return tags.stream()
+                .map(tag -> tagRepository.findBySlug(String.join("-",tag.split(" ")).toLowerCase())
+                        .orElseGet(() -> tagRepository.save(new Tag(tag, String.join("-",tag.split(" ")).toLowerCase()))))
                 .collect(Collectors.toSet());
     }
 
